@@ -39,10 +39,18 @@
   }
   h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-weight: 700;
     font-size: 2.4rem;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  }
+  #visitorCounter {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #ff6666;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
   }
   #searchInput {
     padding: 12px 18px;
@@ -52,9 +60,20 @@
     margin-bottom: 20px;
     outline: none;
     box-shadow: 0 0 10px rgba(255,255,255,0.35);
+    transition: box-shadow 0.3s ease;
   }
-  #searchInput::placeholder {
-    color: #ddd;
+  #searchInput:focus {
+    box-shadow: 0 0 20px #e50914;
+  }
+  .recommendation {
+    background: rgba(255, 20, 20, 0.15);
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 0 15px #e50914;
   }
   ul.films-list {
     list-style: none;
@@ -107,13 +126,14 @@
     border-radius: 25px;
     cursor: pointer;
     box-shadow: 0 0 10px #e50914;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     margin-left: 20px;
     flex-shrink: 0;
   }
   .btn-watch:hover {
     background-color: #b0070f;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #b0070f;
   }
   @media (max-width: 720px) {
     .container {
@@ -140,14 +160,19 @@
 
 <div class="container">
   <h1>Топ фильмов и сериалов</h1>
+
+  <div id="visitorCounter">Загружаем количество посетителей...</div>
+
+  <div class="recommendation">🔥 Популярные фильмы сегодня: Игра в кальмара, Мстители, Джокер 🔥</div>
+
   <input type="text" id="searchInput" placeholder="Поиск фильма или сериала..." />
+
   <ul class="films-list" id="filmsList"></ul>
 </div>
 
 <script>
   const telegramLink = 'https://t.me/Cinemago1_bot';
 
-  // Добавляем к фильмам описание и ссылку на постер (можно заменить на свои изображения)
   const films = [
     {
       name: 'Игра в кальмара',
@@ -179,11 +204,11 @@
       desc: 'Фэнтези сериал, 2011–2019, 9.3 IMDb',
       poster: 'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_8.jpg'
     },
-    // Добавляй еще по аналогии!
   ];
 
   const filmsList = document.getElementById('filmsList');
   const searchInput = document.getElementById('searchInput');
+  const visitorCounter = document.getElementById('visitorCounter');
 
   function renderList(filter = '') {
     filmsList.innerHTML = '';
@@ -237,6 +262,17 @@
   searchInput.addEventListener('input', () => {
     renderList(searchInput.value);
   });
+
+  // Имитируем счетчик посетителей — в реальном проекте нужно использовать базу или API
+  let visitors = Math.floor(Math.random() * 500) + 500; // от 500 до 1000
+  visitorCounter.textContent = `Сейчас на сайте: ${visitors} посетителей`;
+
+  // Можно добавить анимацию счетчика, увеличивающегося постепенно
+  function animateVisitors() {
+    visitors += Math.floor(Math.random() * 5);
+    visitorCounter.textContent = `Сейчас на сайте: ${visitors} посетителей`;
+  }
+  setInterval(animateVisitors, 3000);
 </script>
 
 </body>
