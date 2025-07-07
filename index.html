@@ -21,37 +21,37 @@
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0,0,0,0.7);
     z-index: 0;
   }
   .container {
     position: relative;
-    max-width: 600px;
+    max-width: 700px;
     margin: 40px auto;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.85);
     padding: 25px 30px 20px 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.9);
     z-index: 1;
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 85vh;
   }
   h1 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-weight: 700;
-    font-size: 2.2rem;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    font-size: 2.4rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
   }
   #searchInput {
-    padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: 25px;
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border-radius: 30px;
     border: none;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     outline: none;
-    box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    box-shadow: 0 0 10px rgba(255,255,255,0.35);
   }
   #searchInput::placeholder {
     color: #ddd;
@@ -62,55 +62,72 @@
     margin: 0;
     overflow-y: auto;
     flex-grow: 1;
-    border-top: 1px solid rgba(255,255,255,0.3);
-    border-bottom: 1px solid rgba(255,255,255,0.3);
+    border-top: 1px solid rgba(255,255,255,0.4);
+    border-bottom: 1px solid rgba(255,255,255,0.4);
   }
   ul.films-list li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding: 15px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: background-color 0.3s ease;
   }
-  ul.films-list li:last-child {
-    border-bottom: none;
+  ul.films-list li:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+  .poster {
+    width: 50px;
+    height: 75px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+  }
+  .film-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   .film-name {
-    font-size: 1.1rem;
-    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .film-desc {
+    font-size: 0.9rem;
+    color: #ccc;
   }
   .btn-watch {
     background-color: #e50914;
     border: none;
     color: white;
-    padding: 8px 18px;
+    padding: 10px 22px;
     font-size: 1rem;
     border-radius: 25px;
     cursor: pointer;
-    box-shadow: 0 0 8px #e50914;
-    transition: background-color 0.3s ease;
-    margin-left: 15px;
+    box-shadow: 0 0 10px #e50914;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 20px;
     flex-shrink: 0;
   }
   .btn-watch:hover {
     background-color: #b0070f;
+    transform: scale(1.05);
   }
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .container {
-      max-width: 90vw;
-      height: 85vh;
+      max-width: 95vw;
+      height: 90vh;
       margin: 20px auto;
       padding: 20px;
-    }
-    h1 {
-      font-size: 1.8rem;
     }
     ul.films-list li {
       flex-direction: column;
       align-items: flex-start;
     }
     .btn-watch {
-      margin: 10px 0 0 0;
+      margin: 12px 0 0 0;
       width: 100%;
       text-align: center;
     }
@@ -124,58 +141,45 @@
 <div class="container">
   <h1>Топ фильмов и сериалов</h1>
   <input type="text" id="searchInput" placeholder="Поиск фильма или сериала..." />
-  <ul class="films-list" id="filmsList">
-    <!-- Список фильмов будет здесь -->
-  </ul>
+  <ul class="films-list" id="filmsList"></ul>
 </div>
 
 <script>
   const telegramLink = 'https://t.me/Cinemago1_bot';
 
+  // Добавляем к фильмам описание и ссылку на постер (можно заменить на свои изображения)
   const films = [
-    'Игра в кальмара',
-    'Очень странные дела',
-    'Ведьмак',
-    'Бумажный дом',
-    'Люпен',
-    'Игра престолов',
-    'Бриджертоны',
-    'Ход королевы',
-    'Друзья',
-    'Во все тяжкие',
-    'Черное зеркало',
-    'Благие знамения',
-    'Нарко',
-    'Сумерки',
-    'Доктор Стрэндж',
-    'Человек-паук',
-    'Железный человек',
-    'Тор',
-    'Капитан Америка',
-    'Мстители',
-    'Джокер',
-    'Матрица',
-    'Побег из Шоушенка',
-    'Форсаж',
-    'Дэдпул',
-    'Локи',
-    'ВандаВижн',
-    'Звёздные войны',
-    'Ходячие мертвецы',
-    'Острые козырьки',
-    'Лучше звоните Солу',
-    'Мандалорец',
-    'Властелин колец',
-    'Гарри Поттер',
-    'Шерлок',
-    'Бумажный дом: Корея',
-    'Хорошее место',
-    'Очень странные дела',
-    'Фарго',
-    'Чернобыль',
-    'Доктор Кто',
-    'Настоящий детектив',
-    'Сверхъестественное'
+    {
+      name: 'Игра в кальмара',
+      desc: 'Южнокорейский триллер, 2021, 8.0 IMDb',
+      poster: 'https://upload.wikimedia.org/wikipedia/ru/thumb/e/e7/Netflix_Squid_Game.jpg/220px-Netflix_Squid_Game.jpg'
+    },
+    {
+      name: 'Очень странные дела',
+      desc: 'Мистический сериал, 2016–, 8.7 IMDb',
+      poster: 'https://upload.wikimedia.org/wikipedia/en/3/38/Stranger_Things_season_3.jpg'
+    },
+    {
+      name: 'Ведьмак',
+      desc: 'Фэнтези, 2019–, 8.2 IMDb',
+      poster: 'https://upload.wikimedia.org/wikipedia/en/9/93/Witcher_title_card.png'
+    },
+    {
+      name: 'Мстители',
+      desc: 'Фильм о супергероях Marvel, 2012, 8.0 IMDb',
+      poster: 'https://upload.wikimedia.org/wikipedia/ru/0/0d/The_Avengers_2012_film_poster.jpg'
+    },
+    {
+      name: 'Джокер',
+      desc: 'Психологический триллер, 2019, 8.5 IMDb',
+      poster: 'https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg'
+    },
+    {
+      name: 'Игра престолов',
+      desc: 'Фэнтези сериал, 2011–2019, 9.3 IMDb',
+      poster: 'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_8.jpg'
+    },
+    // Добавляй еще по аналогии!
   ];
 
   const filmsList = document.getElementById('filmsList');
@@ -183,21 +187,36 @@
 
   function renderList(filter = '') {
     filmsList.innerHTML = '';
-    const filtered = films.filter(film => film.toLowerCase().includes(filter.toLowerCase()));
+    const filtered = films.filter(film => film.name.toLowerCase().includes(filter.toLowerCase()));
     if(filtered.length === 0) {
       const li = document.createElement('li');
       li.textContent = 'Фильмы не найдены';
       li.style.textAlign = 'center';
-      li.style.padding = '15px';
+      li.style.padding = '20px';
       filmsList.appendChild(li);
       return;
     }
     filtered.forEach(film => {
       const li = document.createElement('li');
 
+      const poster = document.createElement('img');
+      poster.src = film.poster;
+      poster.alt = film.name;
+      poster.classList.add('poster');
+
+      const filmInfo = document.createElement('div');
+      filmInfo.classList.add('film-info');
+
       const nameSpan = document.createElement('span');
-      nameSpan.textContent = film;
+      nameSpan.textContent = film.name;
       nameSpan.classList.add('film-name');
+
+      const descSpan = document.createElement('span');
+      descSpan.textContent = film.desc;
+      descSpan.classList.add('film-desc');
+
+      filmInfo.appendChild(nameSpan);
+      filmInfo.appendChild(descSpan);
 
       const btn = document.createElement('button');
       btn.textContent = 'Смотреть';
@@ -206,16 +225,15 @@
         window.location.href = telegramLink;
       };
 
-      li.appendChild(nameSpan);
+      li.appendChild(poster);
+      li.appendChild(filmInfo);
       li.appendChild(btn);
       filmsList.appendChild(li);
     });
   }
 
-  // Инициализация списка
   renderList();
 
-  // Поиск по названию
   searchInput.addEventListener('input', () => {
     renderList(searchInput.value);
   });
