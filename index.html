@@ -14,31 +14,25 @@
     font-family: 'Roboto', sans-serif;
     color: white;
     overflow: hidden;
-  }
-  .video-background {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -2;
-    filter: brightness(0.4);
+    background: url('https://wallpaperaccess.com/full/2445664.jpg') no-repeat center center fixed;
+    background-size: cover;
   }
   .overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.6);
-    z-index: -1;
+    background: rgba(0,0,0,0.65);
+    z-index: 0;
   }
   .container {
     position: relative;
     max-width: 480px;
     margin: 50px auto;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.75);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+    z-index: 1;
   }
   h1 {
     text-align: center;
@@ -103,12 +97,6 @@
 </style>
 </head>
 <body>
-
-<video class="video-background" autoplay muted loop playsinline>
-  <source src="https://cdn.videvo.net/videvo_files/video/free/2016-12/small_watermarked/160918_04_Theater_Marquee_1080p_preview.webm" type="video/webm">
-  <source src="https://cdn.videvo.net/videvo_files/video/free/2016-12/small_watermarked/160918_04_Theater_Marquee_1080p_preview.mp4" type="video/mp4">
-  Ваш браузер не поддерживает видео.
-</video>
 
 <div class="overlay"></div>
 
