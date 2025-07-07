@@ -3,295 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Лучшие фильмы и сериалы</title>
+  <title>Kino Film - Смотреть фильмы и сериалы</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Стили страницы */
     body, html {
+      margin: 0; padding: 0;
       height: 100%;
-      font-family: 'Roboto', sans-serif;
+      font-family: Arial, sans-serif;
       color: white;
-      background: url('https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_01.jpg') no-repeat center center fixed;
+      background: url('https://i.ibb.co/2nX89Ch/marvel-background.jpg') no-repeat center center fixed;
       background-size: cover;
-      overflow: hidden;
+      overflow-x: hidden;
     }
+
     .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.7);
-      z-index: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
     }
+
     .container {
       position: relative;
-      max-width: 700px;
-      margin: 40px auto;
-      background: rgba(0,0,0,0.85);
-      padding: 25px 30px 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.9);
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      height: 85vh;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
     }
+
     h1 {
-      text-align: center;
+      font-size: 3em;
       margin-bottom: 10px;
-      font-weight: 700;
-      font-size: 2.4rem;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+      text-shadow: 0 0 10px #e50914;
     }
-    #visitorCounter {
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 15px;
-      color: #ff6666;
-      font-weight: 600;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+
+    p.description {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      text-shadow: 0 0 5px black;
     }
-    .recommendation {
-      background: rgba(255, 20, 20, 0.15);
-      padding: 10px 15px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-align: center;
-      box-shadow: 0 0 15px #e50914;
+
+    .movie-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
     }
-    #searchInput {
-      padding: 12px 18px;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      border: none;
-      margin-bottom: 15px;
-      outline: none;
-      box-shadow: 0 0 10px rgba(255,255,255,0.35);
-      transition: box-shadow 0.3s ease;
+
+    .movie-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      width: 200px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
+      transition: transform 0.2s ease;
     }
-    #searchInput:focus {
-      box-shadow: 0 0 20px #e50914;
-    }
-    .filters {
-      display:flex; justify-content: space-between; margin-bottom: 15px;
-    }
-    .filters select {
-      padding: 10px;
-      border-radius: 20px;
-      border:none;
-      flex:1;
-      font-size: 1rem;
-      margin-right: 10px;
-      outline:none;
-      box-shadow: 0 0 8px rgba(255,0,0,0.6);
-      background: rgba(0,0,0,0.7);
-      color: white;
+    .movie-item:hover {
+      transform: scale(1.05);
+      background: rgba(229, 9, 20, 0.8);
       cursor: pointer;
-      transition: box-shadow 0.3s ease;
     }
-    .filters select:last-child {
-      margin-right: 0;
+
+    .movie-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.1em;
     }
-    .filters select:hover, .filters select:focus {
-      box-shadow: 0 0 20px #e50914;
-    }
-    ul.films-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      overflow-y: auto;
-      flex-grow: 1;
-      border-top: 1px solid rgba(255,255,255,0.4);
-      border-bottom: 1px solid rgba(255,255,255,0.4);
-    }
-    ul.films-list li {
-      display: flex;
-      align-items: center;
-      padding: 15px 15px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      transition: background-color 0.3s ease;
-    }
-    ul.films-list li:hover {
-      background-color: rgba(255,255,255,0.1);
-    }
-    .poster {
-      width: 50px;
-      height: 75px;
-      border-radius: 8px;
-      object-fit: cover;
-      margin-right: 15px;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
-    }
-    .film-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .film-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .film-desc {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
+
     .btn-watch {
       background-color: #e50914;
       border: none;
       color: white;
-      padding: 10px 22px;
-      font-size: 1rem;
+      padding: 10px 18px;
+      font-size: 1em;
       border-radius: 25px;
       cursor: pointer;
-      box-shadow: 0 0 10px #e50914;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      margin-left: 20px;
-      flex-shrink: 0;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
     }
     .btn-watch:hover {
-      background-color: #b0070f;
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #b0070f;
+      background-color: #b0060f;
     }
-    @media (max-width: 720px) {
-      .container {
-        max-width: 95vw;
-        height: 90vh;
-        margin: 20px auto;
-        padding: 20px;
-      }
-      ul.films-list li {
+
+    /* Адаптив */
+    @media(max-width: 600px) {
+      .movie-list {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
       }
-      .btn-watch {
-        margin: 12px 0 0 0;
-        width: 100%;
-        text-align: center;
+      .movie-item {
+        width: 90%;
       }
-      .filters {
-        flex-direction: column;
-      }
-      .filters select {
-        margin-right: 0;
-        margin-bottom: 10px;
-        flex: none;
-        width: 100%;
+      h1 {
+        font-size: 2.2em;
       }
     }
   </style>
+
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript" >
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*new Date();
+     for (var j = 0; j < document.scripts.length; j++) {
+        if (document.scripts[j].src === r) { return; }
+     }
+     k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+     k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+     })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+     ym(103230979, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+     });
+  </script>
+  <noscript>
+    <div>
+      <img src="https://mc.yandex.ru/watch/103230979" style="position:absolute; left:-9999px;" alt="" />
+    </div>
+  </noscript>
+  <!-- /Яндекс.Метрика -->
+
 </head>
 <body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>Добро пожаловать в Kino Film 🎬</h1>
+    <p class="description">Ищи любимые фильмы и сериалы. Нажми "Смотреть" и перейди в нашего Telegram-бота!</p>
 
-<div class="overlay"></div>
+    <div class="movie-list" id="movieList">
+      <!-- Список фильмов будет здесь -->
+    </div>
 
-<div class="container">
-  <h1>Топ фильмов и сериалов</h1>
-
-  <div id="visitorCounter">Загружаем количество посетителей...</div>
-
-  <div class="recommendation">
-    🔥 Популярные фильмы сегодня: Игра в кальмара, Мстители, Джокер 🔥
   </div>
 
-  <input type="text" id="searchInput" placeholder="Поиск фильма или сериала..." />
+  <script>
+    const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
 
-  <div class="filters">
-    <select id="genreFilter">
-      <option value="">Все жанры</option>
-      <option value="Триллер">Триллер</option>
-      <option value="Мистика">Мистика</option>
-      <option value="Фэнтези">Фэнтези</option>
-      <option value="Супергерои">Супергерои</option>
-      <option value="Психологический">Психологический</option>
-    </select>
-    <select id="yearFilter">
-      <option value="">Все года</option>
-      <option value="2021">2021</option>
-      <option value="2019">2019</option>
-      <option value="2016">2016</option>
-      <option value="2012">2012</option>
-      <option value="2011">2011</option>
-    </select>
-  </div>
+    // Пример фильмов для показа (можно менять/добавлять)
+    const movies = [
+      "Игра в кальмара",
+      "Мстители",
+      "Джокер",
+      "Острые козырьки",
+      "Доктор Стрэндж",
+      "Шерлок",
+      "Патруль времени",
+      "Очень странные дела",
+      "Бэтмен",
+      "Король Лев"
+    ];
 
-  <ul class="films-list" id="filmsList"></ul>
-</div>
+    const movieListEl = document.getElementById('movieList');
 
-<script>
-  const telegramLink = 'https://t.me/Cinemago1_bot';
+    movies.forEach(title => {
+      const item = document.createElement('div');
+      item.className = 'movie-item';
 
-  const films = [
-    {name:'Игра в кальмара',desc:'Южнокорейский триллер,2021,8.0 IMDb',poster:'https://upload.wikimedia.org/wikipedia/ru/thumb/e/e7/Netflix_Squid_Game.jpg/220px-Netflix_Squid_Game.jpg',genre:'Триллер',year:'2021'},
-    {name:'Очень странные дела',desc:'Мистический сериал,2016–,8.7 IMDb',poster:'https://upload.wikimedia.org/wikipedia/en/3/38/Stranger_Things_season_3.jpg',genre:'Мистика',year:'2016'},
-    {name:'Ведьмак',desc:'Фэнтези,2019–,8.2 IMDb',poster:'https://upload.wikimedia.org/wikipedia/en/9/93/Witcher_title_card.png',genre:'Фэнтези',year:'2019'},
-    {name:'Мстители',desc:'Фильм о супергероях Marvel,2012,8.0 IMDb',poster:'https://upload.wikimedia.org/wikipedia/ru/0/0d/The_Avengers_2012_film_poster.jpg',genre:'Супергерои',year:'2012'},
-    {name:'Джокер',desc:'Психологический триллер,2019,8.5 IMDb',poster:'https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg',genre:'Психологический',year:'2019'},
-    {name:'Игра престолов',desc:'Фэнтези сериал,2011–2019,9.3 IMDb',poster:'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_8.jpg',genre:'Фэнтези',year:'2011'},
-  ];
+      const movieTitle = document.createElement('div');
+      movieTitle.className = 'movie-title';
+      movieTitle.textContent = title;
 
-  const filmsList = document.getElementById('filmsList');
-  const searchInput = document.getElementById('searchInput');
-  const visitorCounter = document.getElementById('visitorCounter');
-  const genreFilter = document.getElementById('genreFilter');
-  const yearFilter = document.getElementById('yearFilter');
-
-  function renderList(filter = '') {
-    filmsList.innerHTML = '';
-    const filtered = films.filter(film => {
-      const matchName = film.name.toLowerCase().includes(filter.toLowerCase());
-      const matchGenre = genreFilter.value === '' || film.genre === genreFilter.value;
-      const matchYear = yearFilter.value === '' || film.year === yearFilter.value;
-      return matchName && matchGenre && matchYear;
-    });
-    if(filtered.length === 0) {
-      const li = document.createElement('li');
-      li.textContent = 'Фильмы не найдены';
-      li.style.textAlign = 'center';
-      li.style.padding = '20px';
-      filmsList.appendChild(li);
-      return;
-    }
-    filtered.forEach(film => {
-      const li = document.createElement('li');
-      const poster = document.createElement('img');
-      poster.src = film.poster;
-      poster.alt = film.name;
-      poster.className = 'poster';
-      const info = document.createElement('div');
-      info.className = 'film-info';
-      const name = document.createElement('span');
-      name.textContent = film.name;
-      name.className = 'film-name';
-      const desc = document.createElement('span');
-      desc.textContent = film.desc;
-      desc.className = 'film-desc';
-      info.append(name, desc);
-      const btn = document.createElement('button');
-      btn.textContent = 'Смотреть';
+      const btn = document.createElement('a');
       btn.className = 'btn-watch';
-      btn.onclick = () => window.location.href = telegramLink;
-      li.append(poster, info, btn);
-      filmsList.appendChild(li);
+      btn.href = telegramLink;
+      btn.target = '_blank';
+      btn.textContent = 'Смотреть';
+
+      item.appendChild(movieTitle);
+      item.appendChild(btn);
+
+      movieListEl.appendChild(item);
     });
-  }
-
-  renderList();
-
-  searchInput.addEventListener('input', () => renderList(searchInput.value));
-  genreFilter.addEventListener('change', () => renderList(searchInput.value));
-  yearFilter.addEventListener('change', () => renderList(searchInput.value));
-
-  let visitors = Math.floor(Math.random() * 500) + 500;
-  visitorCounter.textContent = `Сейчас на сайте: ${visitors} посетителей`;
-  setInterval(() => {
-    visitors += Math.floor(Math.random() * 5);
-    visitorCounter.textContent = `Сейчас на сайте: ${visitors} посетителей`;
-  }, 3000);
-</script>
-
+  </script>
 </body>
 </html>
