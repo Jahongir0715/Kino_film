@@ -5,42 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KinoFilm — Смотреть фильмы и сериалы онлайн бесплатно</title>
   <meta name="description" content="KinoFilm — лучший сайт для просмотра популярных фильмов и сериалов онлайн. Новинки кино и топовые сериалы доступны бесплатно и без регистрации." />
-  
+
   <style>
-    /* Анимация смены фона с Marvel комиксами */
     body, html {
-      margin: 0; padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      color: white;
+      margin: 0; padding: 0; height: 100%;
+      font-family: Arial, sans-serif; color: white;
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
       animation: bgFade 30s infinite;
       overflow-x: hidden;
     }
-
     @keyframes bgFade {
-      0% {
-        background-image: url('https://i.ibb.co/fM5Y0yr/marvel1.jpg');
-      }
-      33% {
-        background-image: url('https://i.ibb.co/njzx3b7/marvel2.jpg');
-      }
-      66% {
-        background-image: url('https://i.ibb.co/RbV7dws/marvel3.jpg');
-      }
-      100% {
-        background-image: url('https://i.ibb.co/fM5Y0yr/marvel1.jpg');
-      }
+      0% { background-image: url('https://i.ibb.co/fM5Y0yr/marvel1.jpg'); }
+      33% { background-image: url('https://i.ibb.co/njzx3b7/marvel2.jpg'); }
+      66% { background-image: url('https://i.ibb.co/RbV7dws/marvel3.jpg'); }
+      100% { background-image: url('https://i.ibb.co/fM5Y0yr/marvel1.jpg'); }
     }
 
-    /* Плавающее окно — полупрозрачный контейнер с тенью и плавным эффектом */
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.4);
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; z-index: 1;
+    }
     .container {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      margin: 50px auto;
+      position: relative; z-index: 2;
+      max-width: 900px; margin: 50px auto;
       padding: 40px 20px;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 15px;
@@ -48,56 +38,41 @@
       backdrop-filter: blur(10px);
       animation: floatWindow 10s ease-in-out infinite;
     }
-
     @keyframes floatWindow {
-      0%, 100% {
-        transform: translateY(0);
-        box-shadow: 0 0 30px rgba(229, 9, 20, 0.9);
-      }
-      50% {
-        transform: translateY(-15px);
-        box-shadow: 0 10px 40px rgba(229, 9, 20, 1);
-      }
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px #e50914;
-      text-align: center;
-    }
+    h1, p.description { text-align: center; }
+    h1 { font-size: 3em; margin-bottom: 10px; text-shadow: 0 0 10px #e50914; }
     p.description {
-      font-size: 1.2em;
-      margin-bottom: 40px;
+      font-size: 1.2em; margin-bottom: 40px;
       text-shadow: 0 0 5px black;
-      text-align: center;
     }
+
     .movie-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 15px;
       margin-bottom: 40px;
     }
     .movie-item {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.1);
       border-radius: 10px;
       width: 200px;
       padding: 15px;
-      box-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
-      transition: transform 0.2s ease;
+      box-shadow: 0 0 10px rgba(229,9,20,0.8);
+      transition: transform 0.2s;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     .movie-item:hover {
       transform: scale(1.05);
-      background: rgba(229, 9, 20, 0.8);
+      background: rgba(229,9,20,0.8);
       cursor: pointer;
     }
     .movie-item img {
-      width: 100%;
-      border-radius: 8px;
+      width: 100%; border-radius: 8px;
       margin-bottom: 10px;
       object-fit: cover;
       height: 300px;
@@ -105,86 +80,41 @@
     .movie-title {
       font-weight: bold;
       margin-bottom: 10px;
-      font-size: 1.1em;
+      font-size: 1em;
       text-align: center;
     }
     .btn-watch {
       background-color: #e50914;
-      border: none;
       color: white;
+      border: none;
       padding: 10px 18px;
-      font-size: 1em;
       border-radius: 25px;
-      cursor: pointer;
       text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s ease;
+      font-size: 1em;
       text-align: center;
       width: 100%;
+      transition: background-color 0.3s;
     }
     .btn-watch:hover {
       background-color: #b0060f;
     }
-    @media(max-width: 600px) {
-      .movie-list {
-        flex-direction: column;
-        align-items: center;
-      }
-      .movie-item {
-        width: 90%;
-      }
-      h1 {
-        font-size: 2.2em;
-      }
-    }
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.4);
-      position: fixed; 
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1;
+    @media (max-width:600px) {
+      .movie-item { width: 90%; }
+      h1 { font-size: 2.2em; }
     }
   </style>
-
-  <!-- Яндекс.Метрика -->
-  <script type="text/javascript" >
-     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-     m[i].l=1*new Date();
-     for (var j = 0; j < document.scripts.length; j++) {
-        if (document.scripts[j].src === r) { return; }
-     }
-     k=e.createElement(t),a=e.getElementsByTagName(t)[0],
-     k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-     })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-     ym(103230979, "init", {
-          clickmap:true,
-          trackLinks:true,
-          accurateTrackBounce:true,
-          webvisor:true
-     });
-  </script>
-  <noscript>
-    <div>
-      <img src="https://mc.yandex.ru/watch/103230979" style="position:absolute; left:-9999px;" alt="" />
-    </div>
-  </noscript>
-  <!-- /Яндекс.Метрика -->
-
 </head>
+
 <body>
   <div class="overlay"></div>
   <div class="container">
     <h1>Добро пожаловать в Kino Film 🎬</h1>
-    <p class="description">Ищи любимые фильмы и сериалы. Нажми "Смотреть" и перейди в нашего Telegram-бота!</p>
-
-    <div class="movie-list" id="movieList">
-      <!-- Фильмы будут здесь -->
-    </div>
+    <p class="description">Ищи любимые фильмы и сериалы. Нажми "Смотреть" и перейди в нашего Telegram‑бота!</p>
+    <div class="movie-list" id="movieList"></div>
   </div>
 
   <script>
     const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
-
     const movies = [
       { title: "Игра в кальмара", img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg" },
       { title: "Мстители", img: "https://upload.wikimedia.org/wikipedia/en/f/f9/The_Avengers_%282012_film%29_poster.jpg" },
@@ -209,31 +139,23 @@
       { title: "Лило и Стич", img: "https://upload.wikimedia.org/wikipedia/en/e/e3/Lilo_%26_Stitch_poster.jpg" },
       { title: "Пираты Карибского моря", img: "https://upload.wikimedia.org/wikipedia/en/8/8e/Pirates_of_the_Caribbean_-_The_Curse_of_the_Black_Pearl.png" },
       { title: "Матрица: Воскрешение", img: "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Resurrections.jpg" }
-  ];
-const movieListEl = document.getElementById('movieList');
+    ];
 
-movies.forEach(movie => {
-  const item = document.createElement('div');
-  item.className = 'movie-item';
-
-  const img = document.createElement('img');
-  img.src = movie.img;
-  img.alt = movie.title;
-
-  const movieTitle = document.createElement('div');
-  movieTitle.className = 'movie-title';
-  movieTitle.textContent = movie.title;
-
-  const btn = document.createElement('a');
-  btn.className = 'btn-watch';
-  btn.href = telegramLink;
-  btn.target = '_blank';
-  btn.rel = 'noopener noreferrer';
-  btn.textContent = 'Смотреть';
-
-  item.appendChild(img);
-  item.appendChild(movieTitle);
-  item.appendChild(btn);
-
-  movieListEl.appendChild(item);
-});
+    const movieListEl = document.getElementById('movieList');
+    movies.forEach(movie => {
+      const item = document.createElement('div');
+      item.className = 'movie-item';
+      const img = document.createElement('img');
+      img.src = movie.img; img.alt = movie.title;
+      const titleEl = document.createElement('div');
+      titleEl.className = 'movie-title';
+      titleEl.textContent = movie.title;
+      const btn = document.createElement('a');
+      btn.className = 'btn-watch'; btn.href = telegramLink;
+      btn.target = '_blank'; btn.rel = 'noopener noreferrer'; btn.textContent = 'Смотреть';
+      item.append(img, titleEl, btn);
+      movieListEl.appendChild(item);
+    });
+  </script>
+</body>
+</html>
