@@ -3,81 +3,126 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Поиск фильмов и сериалов</title>
+<title>Лучшие фильмы и сериалы</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #141E30, #243B55);
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
     color: white;
+    overflow: hidden;
+  }
+  .video-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
     height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    object-fit: cover;
+    z-index: -2;
+    filter: brightness(0.4);
+  }
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    z-index: -1;
   }
   .container {
+    position: relative;
+    max-width: 480px;
+    margin: 50px auto;
     background: rgba(0,0,0,0.7);
     padding: 30px;
     border-radius: 15px;
-    width: 350px;
-    box-shadow: 0 0 15px #00bfff;
-    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.8);
   }
   h1 {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 2.4rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
   }
-  input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    outline: none;
-  }
-  ul.suggestions {
+  ul.films-list {
     list-style: none;
     padding: 0;
-    margin: 8px 0 20px 0;
-    background: #222;
-    border-radius: 8px;
-    max-height: 120px;
-    overflow-y: auto;
+    margin: 0;
   }
-  ul.suggestions li {
-    padding: 10px;
-    cursor: pointer;
+  ul.films-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
   }
-  ul.suggestions li:hover {
-    background: #00bfff;
+  ul.films-list li:last-child {
+    border-bottom: none;
   }
-  button {
-    background: #00bfff;
+  .film-name {
+    font-size: 1.1rem;
+    flex: 1;
+  }
+  .btn-watch {
+    background-color: #e50914;
     border: none;
     color: white;
-    padding: 12px 25px;
+    padding: 8px 18px;
+    font-size: 1rem;
     border-radius: 25px;
-    font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 0 10px #00bfff;
-    transition: background 0.3s ease;
+    box-shadow: 0 0 8px #e50914;
+    transition: background-color 0.3s ease;
+    margin-left: 15px;
   }
-  button:hover {
-    background: #008fcc;
+  .btn-watch:hover {
+    background-color: #b0070f;
+  }
+  @media (max-width: 520px) {
+    .container {
+      max-width: 90vw;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+    ul.films-list li {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .btn-watch {
+      margin: 10px 0 0 0;
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>
 </head>
 <body>
+
+<video class="video-background" autoplay muted loop playsinline>
+  <source src="https://cdn.videvo.net/videvo_files/video/free/2016-12/small_watermarked/160918_04_Theater_Marquee_1080p_preview.webm" type="video/webm">
+  <source src="https://cdn.videvo.net/videvo_files/video/free/2016-12/small_watermarked/160918_04_Theater_Marquee_1080p_preview.mp4" type="video/mp4">
+  Ваш браузер не поддерживает видео.
+</video>
+
+<div class="overlay"></div>
+
 <div class="container">
-  <h1>Ищете фильм или сериал?</h1>
-  <form id="searchForm">
-    <input type="text" id="searchInput" placeholder="Введите название..." autocomplete="off" required />
-    <ul class="suggestions" id="suggestionsList"></ul>
-    <button type="submit">Найти</button>
-  </form>
+  <h1>Топ фильмов и сериалов</h1>
+  <ul class="films-list" id="filmsList">
+    <!-- Список фильмов -->
+  </ul>
 </div>
 
 <script>
-  const popularFilms = [
+  const telegramLink = 'https://t.me/Cinemago1_bot';
+
+  const films = [
     'Игра в кальмара',
     'Очень странные дела',
     'Ведьмак',
@@ -90,33 +135,27 @@
     'Во все тяжкие'
   ];
 
-  const input = document.getElementById('searchInput');
-  const suggestionsList = document.getElementById('suggestionsList');
-  const telegramLink = 'https://t.me/Cinemago1_bot'; // <-- ссылка на твоего бота
+  const filmsList = document.getElementById('filmsList');
 
-  function showSuggestions(value) {
-    suggestionsList.innerHTML = '';
-    if (!value) return;
-    const filtered = popularFilms.filter(film => film.toLowerCase().includes(value.toLowerCase()));
-    filtered.forEach(film => {
-      const li = document.createElement('li');
-      li.textContent = film;
-      li.addEventListener('click', () => {
-        window.location.href = telegramLink;
-      });
-      suggestionsList.appendChild(li);
-    });
-  }
+  films.forEach(film => {
+    const li = document.createElement('li');
 
-  input.addEventListener('input', (e) => {
-    showSuggestions(e.target.value);
-  });
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = film;
+    nameSpan.classList.add('film-name');
 
-  document.getElementById('searchForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    if(input.value.trim() === '') return;
-    window.location.href = telegramLink;
+    const btn = document.createElement('button');
+    btn.textContent = 'Смотреть';
+    btn.classList.add('btn-watch');
+    btn.onclick = () => {
+      window.location.href = telegramLink;
+    };
+
+    li.appendChild(nameSpan);
+    li.appendChild(btn);
+    filmsList.appendChild(li);
   });
 </script>
+
 </body>
 </html>
