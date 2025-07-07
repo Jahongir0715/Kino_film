@@ -173,43 +173,135 @@
   </div>
 
   <script>
-    const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
+    <script>
+  const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
 
-    const movies = [
-      "Игра в кальмара",
-      "Мстители",
-      "Джокер",
-      "Острые козырьки",
-      "Доктор Стрэндж",
-      "Шерлок",
-      "Патруль времени",
-      "Очень странные дела",
-      "Бэтмен",
-      "Король Лев",
-      "kalmar o'yini",
-      "как приручить дракона",
-      "Аватар: Путь воды",
-      "Мстители: Война бесконечности",
-      "Джокер",
-      "Игра в кальмара",
-      "Очень странные дела",
-      "Ведьмак",
-      "Ходячие мертвецы",
-      "Доктор Стрэндж в мультивселенной безумия",
-      "Топ Ган: Маверик",
-      "Шерлок",
-      "Патруль времени",
-      "Формула 1",
-      "Фишер все серии",
-      "Лило и Стич",
-      "Как приручить дракона",
-      "Король Лев",
-      "Бэтмен",
-      "Острые козырьки",
-      "Пираты Карибского моря",
-      "Матрица: Воскрешение"
-    ];
+  const movies = [
+    {
+      title: "Игра в кальмара",
+      img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg"
+    },
+    {
+      title: "Мстители",
+      img: "https://upload.wikimedia.org/wikipedia/en/f/f9/The_Avengers_%282012_film%29_poster.jpg"
+    },
+    {
+      title: "Джокер",
+      img: "https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg"
+    },
+    {
+      title: "Острые козырьки",
+      img: "https://upload.wikimedia.org/wikipedia/en/6/65/Peaky_Blinders_Season_6.png"
+    },
+    {
+      title: "Доктор Стрэндж",
+      img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg"
+    },
+    {
+      title: "Шерлок",
+      img: "https://upload.wikimedia.org/wikipedia/en/b/b9/Sherlock_titlecard.jpg"
+    },
+    {
+      title: "Патруль времени",
+      img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Time_Patrol.png"
+    },
+    {
+      title: "Очень странные дела",
+      img: "https://upload.wikimedia.org/wikipedia/en/f/f7/Stranger_Things_season_4.jpg"
+    },
+    {
+      title: "Бэтмен",
+      img: "https://upload.wikimedia.org/wikipedia/en/8/8a/Batman_The_Dark_Knight.jpg"
+    },
+    {
+      title: "Король Лев",
+      img: "https://upload.wikimedia.org/wikipedia/en/3/3d/The_Lion_King_poster.jpg"
+    },
+    {
+      title: "kalmar o'yini",
+      img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg"
+    },
+    {
+      title: "как приручить дракона",
+      img: "https://upload.wikimedia.org/wikipedia/en/9/99/How_to_Train_Your_Dragon_poster.jpg"
+    },
+    {
+      title: "Аватар: Путь воды",
+      img: "https://upload.wikimedia.org/wikipedia/en/4/46/Avatar_The_Way_of_Water_poster.jpg"
+    },
+    {
+      title: "Мстители: Война бесконечности",
+      img: "https://upload.wikimedia.org/wikipedia/en/4/4a/Avengers_Infinity_War_poster.jpg"
+    },
+    {
+      title: "Ведьмак",
+      img: "https://upload.wikimedia.org/wikipedia/en/0/0c/The_Witcher_2019_titlecard.png"
+    },
+    {
+      title: "Ходячие мертвецы",
+      img: "https://upload.wikimedia.org/wikipedia/en/3/30/The_Walking_Dead_Season_9.jpg"
+    },
+    {
+      title: "Доктор Стрэндж в мультивселенной безумия",
+      img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg"
+    },
+    {
+      title: "Топ Ган: Маверик",
+      img: "https://upload.wikimedia.org/wikipedia/en/3/34/Top_Gun_Maverick_Poster.jpg"
+    },
+    {
+      title: "Формула 1",
+      img: "https://upload.wikimedia.org/wikipedia/en/4/43/F1_Logo.png"
+    },
+    {
+      title: "Фишер все серии",
+      img: "https://upload.wikimedia.org/wikipedia/en/a/a4/Fischer_poster.jpg"
+    },
+    {
+      title: "Лило и Стич",
+      img: "https://upload.wikimedia.org/wikipedia/en/e/e3/Lilo_%26_Stitch_poster.jpg"
+    },
+    {
+      title: "Пираты Карибского моря",
+      img: "https://upload.wikimedia.org/wikipedia/en/8/8e/Pirates_of_the_Caribbean_-_The_Curse_of_the_Black_Pearl.png"
+    },
+    {
+      title: "Матрица: Воскрешение",
+      img: "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Resurrections.jpg"
+    }
+  ];
 
+  const movieListEl = document.getElementById('movieList');
+
+  movies.forEach(movie => {
+    const item = document.createElement('div');
+    item.className = 'movie-item';
+
+    const img = document.createElement('img');
+    img.src = movie.img;
+    img.alt = movie.title;
+    img.style.width = '100%';
+    img.style.borderRadius = '8px';
+    img.style.marginBottom = '10px';
+
+    const movieTitle = document.createElement('div');
+    movieTitle.className = 'movie-title';
+    movieTitle.textContent = movie.title;
+
+    const btn = document.createElement('a');
+    btn.className = 'btn-watch';
+    btn.href = telegramLink;
+    btn.target = '_blank';
+    btn.rel = 'noopener noreferrer';
+    btn.textContent = 'Смотреть';
+
+    item.appendChild(img);
+    item.appendChild(movieTitle);
+    item.appendChild(btn);
+
+    movieListEl.appendChild(item);
+  });
+</script>
     const movieListEl = document.getElementById('movieList');
 
     movies.forEach(title => {
