@@ -52,19 +52,6 @@
     font-weight: 600;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
   }
-  #searchInput {
-    padding: 12px 18px;
-    font-size: 1.1rem;
-    border-radius: 30px;
-    border: none;
-    margin-bottom: 20px;
-    outline: none;
-    box-shadow: 0 0 10px rgba(255,255,255,0.35);
-    transition: box-shadow 0.3s ease;
-  }
-  #searchInput:focus {
-    box-shadow: 0 0 20px #e50914;
-  }
   .recommendation {
     background: rgba(255, 20, 20, 0.15);
     padding: 10px 15px;
@@ -74,6 +61,42 @@
     font-weight: 700;
     text-align: center;
     box-shadow: 0 0 15px #e50914;
+  }
+  #searchInput {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    border: none;
+    margin-bottom: 15px;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255,255,255,0.35);
+    transition: box-shadow 0.3s ease;
+  }
+  #searchInput:focus {
+    box-shadow: 0 0 20px #e50914;
+  }
+  .filters {
+    display:flex; justify-content: space-between; margin-bottom: 15px;
+  }
+  .filters select {
+    padding: 10px;
+    border-radius: 20px;
+    border:none;
+    flex:1;
+    font-size: 1rem;
+    margin-right: 10px;
+    outline:none;
+    box-shadow: 0 0 8px rgba(255,0,0,0.6);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
+  .filters select:last-child {
+    margin-right: 0;
+  }
+  .filters select:hover, .filters select:focus {
+    box-shadow: 0 0 20px #e50914;
   }
   ul.films-list {
     list-style: none;
@@ -151,6 +174,15 @@
       width: 100%;
       text-align: center;
     }
+    .filters {
+      flex-direction: column;
+    }
+    .filters select {
+      margin-right: 0;
+      margin-bottom: 10px;
+      flex: none;
+      width: 100%;
+    }
   }
 </style>
 </head>
@@ -167,6 +199,25 @@
 
   <input type="text" id="searchInput" placeholder="Поиск фильма или сериала..." />
 
+  <div class="filters">
+    <select id="genreFilter">
+      <option value="">Все жанры</option>
+      <option value="Триллер">Триллер</option>
+      <option value="Мистика">Мистика</option>
+      <option value="Фэнтези">Фэнтези</option>
+      <option value="Супергерои">Супергерои</option>
+      <option value="Психологический">Психологический</option>
+    </select>
+    <select id="yearFilter">
+      <option value="">Все года</option>
+      <option value="2021">2021</option>
+      <option value="2019">2019</option>
+      <option value="2016">2016</option>
+      <option value="2012">2012</option>
+      <option value="2011">2011</option>
+    </select>
+  </div>
+
   <ul class="films-list" id="filmsList"></ul>
 </div>
 
@@ -177,103 +228,127 @@
     {
       name: 'Игра в кальмара',
       desc: 'Южнокорейский триллер, 2021, 8.0 IMDb',
-      poster: 'https://upload.wikimedia.org/wikipedia/ru/thumb/e/e7/Netflix_Squid_Game.jpg/220px-Netflix_Squid_Game.jpg'
+      poster: 'https://upload.wikimedia.org/wikipedia/ru/thumb/e/e7/Netflix_Squid_Game.jpg/220px-Netflix_Squid_Game.jpg',
+      genre: 'Триллер',
+      year: '2021'
     },
     {
       name: 'Очень странные дела',
       desc: 'Мистический сериал, 2016–, 8.7 IMDb',
-      poster: 'https://upload.wikimedia.org/wikipedia/en/3/38/Stranger_Things_season_3.jpg'
+      poster: 'https://upload.wikimedia.org/wikipedia/en/3/38/Stranger_Things_season_3.jpg',
+      genre: 'Мистика',
+      year: '2016'
     },
     {
       name: 'Ведьмак',
       desc: 'Фэнтези, 2019–, 8.2 IMDb',
-      poster: 'https://upload.wikimedia.org/wikipedia/en/9/93/Witcher_title_card.png'
+      poster: 'https://upload.wikimedia.org/wikipedia/en/9/93/Witcher_title_card.png',
+      genre: 'Фэнтези',
+      year: '2019'
     },
     {
       name: 'Мстители',
       desc: 'Фильм о супергероях Marvel, 2012, 8.0 IMDb',
-      poster: 'https://upload.wikimedia.org/wikipedia/ru/0/0d/The_Avengers_2012_film_poster.jpg'
-    },
-    {
-      name: 'Джокер',
-      desc: 'Психологический триллер, 2019, 8.5 IMDb',
-      poster: 'https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg'
-    },
-    {
-      name: 'Игра престолов',
-      desc: 'Фэнтези сериал, 2011–2019, 9.3 IMDb',
-      poster: 'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_8.jpg'
-    },
-  ];
+      poster: 'https://upload.wikimedia.org/wikipedia/ru/0/0d/The_Avengers_2012_film_poster.jpg',
+      genre: 'Суп
+ергерои',
+year: '2012'
+},
+{
+name: 'Джокер',
+desc: 'Психологический триллер, 2019, 8.5 IMDb',
+poster: 'https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg',
+genre: 'Психологический',
+year: '2019'
+},
+{
+name: 'Игра престолов',
+desc: 'Фэнтези сериал, 2011–2019, 9.3 IMDb',
+poster: 'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_8.jpg',
+genre: 'Фэнтези',
+year: '2011'
+},
+];
 
-  const filmsList = document.getElementById('filmsList');
-  const searchInput = document.getElementById('searchInput');
-  const visitorCounter = document.getElementById('visitorCounter');
+const filmsList = document.getElementById('filmsList');
+const searchInput = document.getElementById('searchInput');
+const visitorCounter = document.getElementById('visitorCounter');
+const genreFilter = document.getElementById('genreFilter');
+const yearFilter = document.getElementById('yearFilter');
 
-  function renderList(filter = '') {
-    filmsList.innerHTML = '';
-    const filtered = films.filter(film => film.name.toLowerCase().includes(filter.toLowerCase()));
-    if(filtered.length === 0) {
-      const li = document.createElement('li');
-      li.textContent = 'Фильмы не найдены';
-      li.style.textAlign = 'center';
-      li.style.padding = '20px';
-      filmsList.appendChild(li);
-      return;
-    }
-    filtered.forEach(film => {
-      const li = document.createElement('li');
+function renderList(filter = '') {
+filmsList.innerHTML = '';
+const filtered = films.filter(film => {
+const matchesName = film.name.toLowerCase().includes(filter.toLowerCase());
+const matchesGenre = genreFilter.value === '' || film.genre === genreFilter.value;
+const matchesYear = yearFilter.value === '' || film.year === yearFilter.value;
+return matchesName && matchesGenre && matchesYear;
+});
+  if(filtered.length === 0) {
+  const li = document.createElement('li');
+  li.textContent = 'Фильмы не найдены';
+  li.style.textAlign = 'center';
+  li.style.padding = '20px';
+  filmsList.appendChild(li);
+  return;
+}
 
-      const poster = document.createElement('img');
-      poster.src = film.poster;
-      poster.alt = film.name;
-      poster.classList.add('poster');
+filtered.forEach(film => {
+  const li = document.createElement('li');
 
-      const filmInfo = document.createElement('div');
-      filmInfo.classList.add('film-info');
+  const poster = document.createElement('img');
+  poster.src = film.poster;
+  poster.alt = film.name;
+  poster.classList.add('poster');
 
-      const nameSpan = document.createElement('span');
-      nameSpan.textContent = film.name;
-      nameSpan.classList.add('film-name');
+  const filmInfo = document.createElement('div');
+  filmInfo.classList.add('film-info');
 
-      const descSpan = document.createElement('span');
-      descSpan.textContent = film.desc;
-      descSpan.classList.add('film-desc');
+  const nameSpan = document.createElement('span');
+  nameSpan.textContent = film.name;
+  nameSpan.classList.add('film-name');
 
-      filmInfo.appendChild(nameSpan);
-      filmInfo.appendChild(descSpan);
+  const descSpan = document.createElement('span');
+  descSpan.textContent = film.desc;
+  descSpan.classList.add('film-desc');
 
-      const btn = document.createElement('button');
-      btn.textContent = 'Смотреть';
-      btn.classList.add('btn-watch');
-      btn.onclick = () => {
-        window.location.href = telegramLink;
-      };
+  filmInfo.appendChild(nameSpan);
+  filmInfo.appendChild(descSpan);
 
-      li.appendChild(poster);
-      li.appendChild(filmInfo);
-      li.appendChild(btn);
-      filmsList.appendChild(li);
-    });
-  }
+  const btn = document.createElement('button');
+  btn.textContent = 'Смотреть';
+  btn.classList.add('btn-watch');
+  btn.onclick = () => {
+    window.location.href = telegramLink;
+  };
 
-  renderList();
+  li.appendChild(poster);
+  li.appendChild(filmInfo);
+  li.appendChild(btn);
+  filmsList.appendChild(li);
+});
+}
 
-  searchInput.addEventListener('input', () => {
-    renderList(searchInput.value);
-  });
+renderList();
 
-  // Имитируем счетчик посетителей — в реальном проекте нужно использовать базу или API
-  let visitors = Math.floor(Math.random() * 500) + 500; // от 500 до 1000
-  visitorCounter.textContent = `Сейчас на сайте: ${visitors} посетителей`;
+searchInput.addEventListener('input', () => {
+renderList(searchInput.value);
+});
+genreFilter.addEventListener('change', () => {
+renderList(searchInput.value);
+});
+yearFilter.addEventListener('change', () => {
+renderList(searchInput.value);
+});
 
-  // Можно добавить анимацию счетчика, увеличивающегося постепенно
-  function animateVisitors() {
-    visitors += Math.floor(Math.random() * 5);
-    visitorCounter.textContent = `Сейчас на сайте: ${visitors} посетителей`;
-  }
-  setInterval(animateVisitors, 3000);
+// Имитируем счётчик посетителей
+let visitors = Math.floor(Math.random() * 500) + 500;
+visitorCounter.textContent = Сейчас на сайте: ${visitors} посетителей;
+function animateVisitors() {
+visitors += Math.floor(Math.random() * 5);
+visitorCounter.textContent = Сейчас на сайте: ${visitors} посетителей;
+}
+setInterval(animateVisitors, 3000);
 </script>
 
-</body>
-</html>
+</body> </html> ```
