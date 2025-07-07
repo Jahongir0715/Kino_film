@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
- <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KinoFilm — Смотреть фильмы и сериалы онлайн бесплатно</title>
   <meta name="description" content="KinoFilm — лучший сайт для просмотра популярных фильмов и сериалов онлайн. Новинки кино и топовые сериалы доступны бесплатно и без регистрации." />
-  <!-- остальные теги и стили -->
-</head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kino Film - Смотреть фильмы и сериалы</title>
+  
   <style>
     /* Анимация смены фона с Marvel комиксами */
     body, html {
@@ -69,11 +64,13 @@
       font-size: 3em;
       margin-bottom: 10px;
       text-shadow: 0 0 10px #e50914;
+      text-align: center;
     }
     p.description {
       font-size: 1.2em;
       margin-bottom: 40px;
       text-shadow: 0 0 5px black;
+      text-align: center;
     }
     .movie-list {
       display: flex;
@@ -89,16 +86,27 @@
       padding: 15px;
       box-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
       transition: transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .movie-item:hover {
       transform: scale(1.05);
       background: rgba(229, 9, 20, 0.8);
       cursor: pointer;
     }
+    .movie-item img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      object-fit: cover;
+      height: 300px;
+    }
     .movie-title {
       font-weight: bold;
       margin-bottom: 10px;
       font-size: 1.1em;
+      text-align: center;
     }
     .btn-watch {
       background-color: #e50914;
@@ -111,6 +119,8 @@
       text-decoration: none;
       display: inline-block;
       transition: background-color 0.3s ease;
+      text-align: center;
+      width: 100%;
     }
     .btn-watch:hover {
       background-color: #b0060f;
@@ -173,157 +183,57 @@
   </div>
 
   <script>
-    <script>
-  const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
+    const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
 
-  const movies = [
-    {
-      title: "Игра в кальмара",
-      img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg"
-    },
-    {
-      title: "Мстители",
-      img: "https://upload.wikimedia.org/wikipedia/en/f/f9/The_Avengers_%282012_film%29_poster.jpg"
-    },
-    {
-      title: "Джокер",
-      img: "https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg"
-    },
-    {
-      title: "Острые козырьки",
-      img: "https://upload.wikimedia.org/wikipedia/en/6/65/Peaky_Blinders_Season_6.png"
-    },
-    {
-      title: "Доктор Стрэндж",
-      img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg"
-    },
-    {
-      title: "Шерлок",
-      img: "https://upload.wikimedia.org/wikipedia/en/b/b9/Sherlock_titlecard.jpg"
-    },
-    {
-      title: "Патруль времени",
-      img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Time_Patrol.png"
-    },
-    {
-      title: "Очень странные дела",
-      img: "https://upload.wikimedia.org/wikipedia/en/f/f7/Stranger_Things_season_4.jpg"
-    },
-    {
-      title: "Бэтмен",
-      img: "https://upload.wikimedia.org/wikipedia/en/8/8a/Batman_The_Dark_Knight.jpg"
-    },
-    {
-      title: "Король Лев",
-      img: "https://upload.wikimedia.org/wikipedia/en/3/3d/The_Lion_King_poster.jpg"
-    },
-    {
-      title: "kalmar o'yini",
-      img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg"
-    },
-    {
-      title: "как приручить дракона",
-      img: "https://upload.wikimedia.org/wikipedia/en/9/99/How_to_Train_Your_Dragon_poster.jpg"
-    },
-    {
-      title: "Аватар: Путь воды",
-      img: "https://upload.wikimedia.org/wikipedia/en/4/46/Avatar_The_Way_of_Water_poster.jpg"
-    },
-    {
-      title: "Мстители: Война бесконечности",
-      img: "https://upload.wikimedia.org/wikipedia/en/4/4a/Avengers_Infinity_War_poster.jpg"
-    },
-    {
-      title: "Ведьмак",
-      img: "https://upload.wikimedia.org/wikipedia/en/0/0c/The_Witcher_2019_titlecard.png"
-    },
-    {
-      title: "Ходячие мертвецы",
-      img: "https://upload.wikimedia.org/wikipedia/en/3/30/The_Walking_Dead_Season_9.jpg"
-    },
-    {
-      title: "Доктор Стрэндж в мультивселенной безумия",
-      img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg"
-    },
-    {
-      title: "Топ Ган: Маверик",
-      img: "https://upload.wikimedia.org/wikipedia/en/3/34/Top_Gun_Maverick_Poster.jpg"
-    },
-    {
-      title: "Формула 1",
-      img: "https://upload.wikimedia.org/wikipedia/en/4/43/F1_Logo.png"
-    },
-    {
-      title: "Фишер все серии",
-      img: "https://upload.wikimedia.org/wikipedia/en/a/a4/Fischer_poster.jpg"
-    },
-    {
-      title: "Лило и Стич",
-      img: "https://upload.wikimedia.org/wikipedia/en/e/e3/Lilo_%26_Stitch_poster.jpg"
-    },
-    {
-      title: "Пираты Карибского моря",
-      img: "https://upload.wikimedia.org/wikipedia/en/8/8e/Pirates_of_the_Caribbean_-_The_Curse_of_the_Black_Pearl.png"
-    },
-    {
-      title: "Матрица: Воскрешение",
-      img: "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Resurrections.jpg"
-    }
+    const movies = [
+      { title: "Игра в кальмара", img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg" },
+      { title: "Мстители", img: "https://upload.wikimedia.org/wikipedia/en/f/f9/The_Avengers_%282012_film%29_poster.jpg" },
+      { title: "Джокер", img: "https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg" },
+      { title: "Острые козырьки", img: "https://upload.wikimedia.org/wikipedia/en/6/65/Peaky_Blinders_Season_6.png" },
+      { title: "Доктор Стрэндж", img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg" },
+      { title: "Шерлок", img: "https://upload.wikimedia.org/wikipedia/en/b/b9/Sherlock_titlecard.jpg" },
+      { title: "Патруль времени", img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Time_Patrol.png" },
+      { title: "Очень странные дела", img: "https://upload.wikimedia.org/wikipedia/en/f/f7/Stranger_Things_season_4.jpg" },
+      { title: "Бэтмен", img: "https://upload.wikimedia.org/wikipedia/en/8/8a/Batman_The_Dark_Knight.jpg" },
+      { title: "Король Лев", img: "https://upload.wikimedia.org/wikipedia/en/3/3d/The_Lion_King_poster.jpg" },
+      { title: "kalmar o'yini", img: "https://upload.wikimedia.org/wikipedia/ru/thumb/1/12/Squid_Game.jpg/220px-Squid_Game.jpg" },
+      { title: "как приручить дракона", img: "https://upload.wikimedia.org/wikipedia/en/9/99/How_to_Train_Your_Dragon_poster.jpg" },
+      { title: "Аватар: Путь воды", img: "https://upload.wikimedia.org/wikipedia/en/4/46/Avatar_The_Way_of_Water_poster.jpg" },
+      { title: "Мстители: Война бесконечности", img: "https://upload.wikimedia.org/wikipedia/en/4/4a/Avengers_Infinity_War_poster.jpg" },
+      { title: "Ведьмак", img: "https://upload.wikimedia.org/wikipedia/en/0/0c/The_Witcher_2019_titlecard.png" },
+      { title: "Ходячие мертвецы", img: "https://upload.wikimedia.org/wikipedia/en/3/30/The_Walking_Dead_Season_9.jpg" },
+      { title: "Доктор Стрэндж в мультивселенной безумия", img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Doctor_Strange_in_the_Multiverse_of_Madness_poster.jpg" },
+      { title: "Топ Ган: Маверик", img: "https://upload.wikimedia.org/wikipedia/en/3/34/Top_Gun_Maverick_Poster.jpg" },
+      { title: "Формула 1", img: "https://upload.wikimedia.org/wikipedia/en/4/43/F1_Logo.png" },
+      { title: "Фишер все серии", img: "https://upload.wikimedia.org/wikipedia/en/a/a4/Fischer_poster.jpg" },
+      { title: "Лило и Стич", img: "https://upload.wikimedia.org/wikipedia/en/e/e3/Lilo_%26_Stitch_poster.jpg" },
+      { title: "Пираты Карибского моря", img: "https://upload.wikimedia.org/wikipedia/en/8/8e/Pirates_of_the_Caribbean_-_The_Curse_of_the_Black_Pearl.png" },
+      { title: "Матрица: Воскрешение", img: "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Resurrections.jpg" }
   ];
+const movieListEl = document.getElementById('movieList');
 
-  const movieListEl = document.getElementById('movieList');
+movies.forEach(movie => {
+  const item = document.createElement('div');
+  item.className = 'movie-item';
 
-  movies.forEach(movie => {
-    const item = document.createElement('div');
-    item.className = 'movie-item';
+  const img = document.createElement('img');
+  img.src = movie.img;
+  img.alt = movie.title;
 
-    const img = document.createElement('img');
-    img.src = movie.img;
-    img.alt = movie.title;
-    img.style.width = '100%';
-    img.style.borderRadius = '8px';
-    img.style.marginBottom = '10px';
+  const movieTitle = document.createElement('div');
+  movieTitle.className = 'movie-title';
+  movieTitle.textContent = movie.title;
 
-    const movieTitle = document.createElement('div');
-    movieTitle.className = 'movie-title';
-    movieTitle.textContent = movie.title;
+  const btn = document.createElement('a');
+  btn.className = 'btn-watch';
+  btn.href = telegramLink;
+  btn.target = '_blank';
+  btn.rel = 'noopener noreferrer';
+  btn.textContent = 'Смотреть';
 
-    const btn = document.createElement('a');
-    btn.className = 'btn-watch';
-    btn.href = telegramLink;
-    btn.target = '_blank';
-    btn.rel = 'noopener noreferrer';
-    btn.textContent = 'Смотреть';
+  item.appendChild(img);
+  item.appendChild(movieTitle);
+  item.appendChild(btn);
 
-    item.appendChild(img);
-    item.appendChild(movieTitle);
-    item.appendChild(btn);
-
-    movieListEl.appendChild(item);
-  });
-</script>
-    const movieListEl = document.getElementById('movieList');
-
-    movies.forEach(title => {
-      const item = document.createElement('div');
-      item.className = 'movie-item';
-
-      const movieTitle = document.createElement('div');
-      movieTitle.className = 'movie-title';
-      movieTitle.textContent = title;
-
-      const btn = document.createElement('a');
-      btn.className = 'btn-watch';
-      btn.href = telegramLink;
-      btn.target = '_blank';
-      btn.rel = 'noopener noreferrer';
-      btn.textContent = 'Смотреть';
-
-      item.appendChild(movieTitle);
-      item.appendChild(btn);
-
-      movieListEl.appendChild(item);
-    });
-  </script>
-</body>
-</html>
+  movieListEl.appendChild(item);
+});
