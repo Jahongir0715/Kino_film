@@ -13,9 +13,9 @@
     height: 100%;
     font-family: 'Roboto', sans-serif;
     color: white;
-    overflow: hidden;
     background: url('https://wallpaperaccess.com/full/2445664.jpg') no-repeat center center fixed;
     background-size: cover;
+    overflow: hidden;
   }
   .overlay {
     position: fixed;
@@ -26,32 +26,51 @@
   }
   .container {
     position: relative;
-    max-width: 480px;
-    margin: 50px auto;
+    max-width: 600px;
+    margin: 40px auto;
     background: rgba(0,0,0,0.75);
-    padding: 30px;
+    padding: 25px 30px 20px 30px;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.8);
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
   }
   h1 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     font-weight: 700;
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  }
+  #searchInput {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: none;
+    margin-bottom: 15px;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255,255,255,0.3);
+  }
+  #searchInput::placeholder {
+    color: #ddd;
   }
   ul.films-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
   }
   ul.films-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
   }
   ul.films-list li:last-child {
     border-bottom: none;
@@ -71,13 +90,15 @@
     box-shadow: 0 0 8px #e50914;
     transition: background-color 0.3s ease;
     margin-left: 15px;
+    flex-shrink: 0;
   }
   .btn-watch:hover {
     background-color: #b0070f;
   }
-  @media (max-width: 520px) {
+  @media (max-width: 640px) {
     .container {
       max-width: 90vw;
+      height: 85vh;
       margin: 20px auto;
       padding: 20px;
     }
@@ -102,8 +123,9 @@
 
 <div class="container">
   <h1>Топ фильмов и сериалов</h1>
+  <input type="text" id="searchInput" placeholder="Поиск фильма или сериала..." />
   <ul class="films-list" id="filmsList">
-    <!-- Список фильмов -->
+    <!-- Список фильмов будет здесь -->
   </ul>
 </div>
 
@@ -120,28 +142,82 @@
     'Бриджертоны',
     'Ход королевы',
     'Друзья',
-    'Во все тяжкие'
+    'Во все тяжкие',
+    'Черное зеркало',
+    'Благие знамения',
+    'Нарко',
+    'Сумерки',
+    'Доктор Стрэндж',
+    'Человек-паук',
+    'Железный человек',
+    'Тор',
+    'Капитан Америка',
+    'Мстители',
+    'Джокер',
+    'Матрица',
+    'Побег из Шоушенка',
+    'Форсаж',
+    'Дэдпул',
+    'Локи',
+    'ВандаВижн',
+    'Звёздные войны',
+    'Ходячие мертвецы',
+    'Острые козырьки',
+    'Лучше звоните Солу',
+    'Мандалорец',
+    'Властелин колец',
+    'Гарри Поттер',
+    'Шерлок',
+    'Бумажный дом: Корея',
+    'Хорошее место',
+    'Очень странные дела',
+    'Фарго',
+    'Чернобыль',
+    'Доктор Кто',
+    'Настоящий детектив',
+    'Сверхъестественное'
   ];
 
   const filmsList = document.getElementById('filmsList');
+  const searchInput = document.getElementById('searchInput');
 
-  films.forEach(film => {
-    const li = document.createElement('li');
+  function renderList(filter = '') {
+    filmsList.innerHTML = '';
+    const filtered = films.filter(film => film.toLowerCase().includes(filter.toLowerCase()));
+    if(filtered.length === 0) {
+      const li = document.createElement('li');
+      li.textContent = 'Фильмы не найдены';
+      li.style.textAlign = 'center';
+      li.style.padding = '15px';
+      filmsList.appendChild(li);
+      return;
+    }
+    filtered.forEach(film => {
+      const li = document.createElement('li');
 
-    const nameSpan = document.createElement('span');
-    nameSpan.textContent = film;
-    nameSpan.classList.add('film-name');
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = film;
+      nameSpan.classList.add('film-name');
 
-    const btn = document.createElement('button');
-    btn.textContent = 'Смотреть';
-    btn.classList.add('btn-watch');
-    btn.onclick = () => {
-      window.location.href = telegramLink;
-    };
+      const btn = document.createElement('button');
+      btn.textContent = 'Смотреть';
+      btn.classList.add('btn-watch');
+      btn.onclick = () => {
+        window.location.href = telegramLink;
+      };
 
-    li.appendChild(nameSpan);
-    li.appendChild(btn);
-    filmsList.appendChild(li);
+      li.appendChild(nameSpan);
+      li.appendChild(btn);
+      filmsList.appendChild(li);
+    });
+  }
+
+  // Инициализация списка
+  renderList();
+
+  // Поиск по названию
+  searchInput.addEventListener('input', () => {
+    renderList(searchInput.value);
   });
 </script>
 
