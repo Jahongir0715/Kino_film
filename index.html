@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kino Film - Смотреть фильмы и сериалы</title>
   <style>
-    /* Стили страницы */
     body, html {
       margin: 0; padding: 0;
       height: 100%;
@@ -15,13 +14,12 @@
       background-size: cover;
       overflow-x: hidden;
     }
-
     .overlay {
       background-color: rgba(0, 0, 0, 0.7);
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed; 
+      top: 0; left: 0; width: 100%; height: 100%;
       z-index: 1;
     }
-
     .container {
       position: relative;
       z-index: 2;
@@ -30,19 +28,16 @@
       padding: 40px 20px;
       text-align: center;
     }
-
     h1 {
       font-size: 3em;
       margin-bottom: 10px;
       text-shadow: 0 0 10px #e50914;
     }
-
     p.description {
       font-size: 1.2em;
       margin-bottom: 40px;
       text-shadow: 0 0 5px black;
     }
-
     .movie-list {
       display: flex;
       flex-wrap: wrap;
@@ -50,7 +45,6 @@
       gap: 15px;
       margin-bottom: 40px;
     }
-
     .movie-item {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
@@ -64,13 +58,11 @@
       background: rgba(229, 9, 20, 0.8);
       cursor: pointer;
     }
-
     .movie-title {
       font-weight: bold;
       margin-bottom: 10px;
       font-size: 1.1em;
     }
-
     .btn-watch {
       background-color: #e50914;
       border: none;
@@ -86,8 +78,6 @@
     .btn-watch:hover {
       background-color: #b0060f;
     }
-
-    /* Адаптив */
     @media(max-width: 600px) {
       .movie-list {
         flex-direction: column;
@@ -135,7 +125,7 @@
     <p class="description">Ищи любимые фильмы и сериалы. Нажми "Смотреть" и перейди в нашего Telegram-бота!</p>
 
     <div class="movie-list" id="movieList">
-      <!-- Список фильмов будет здесь -->
+      <!-- Фильмы будут здесь -->
     </div>
 
   </div>
@@ -143,7 +133,6 @@
   <script>
     const telegramLink = 'https://t.me/Cinemago1_bot?start=site';
 
-    // Пример фильмов для показа (можно менять/добавлять)
     const movies = [
       "Игра в кальмара",
       "Мстители",
@@ -171,6 +160,7 @@
       btn.className = 'btn-watch';
       btn.href = telegramLink;
       btn.target = '_blank';
+      btn.rel = 'noopener noreferrer';
       btn.textContent = 'Смотреть';
 
       item.appendChild(movieTitle);
